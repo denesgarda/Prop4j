@@ -6,7 +6,7 @@ To register a properties file, you have to do the following:
 ```java
 PropertiesFile propertiesFile = new PropertiesFile(path);
 ```
-You can then run baic actions this file, like this:
+You can then run baic actions, like this:
 ```java
 if(propertiesFile.exists) {
   //only happens if the file physically exists
