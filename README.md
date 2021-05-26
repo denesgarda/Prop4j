@@ -1,4 +1,4 @@
-Latest release: [Prop4j_1.0.jar](builds/Prop4j_1.0.jar)
+Latest release: [Prop4j_1.0.jar](https://github.com/DenDen747/Prop4j/raw/main/builds/Prop4j_1.0.jar)
 # Prop4j
 Reading and writing to properties files can be a hassle with Java, that's why I've create Prop4j. Prop4j makes it really easy and staight-forward to use propterties files.
 ## Registering a properties file
