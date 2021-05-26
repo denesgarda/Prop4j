@@ -200,6 +200,14 @@ public class PropertiesFile {
         return result;
     }
 
+    public File getAsFile() {
+        return new File(this.path);
+    }
+
+    public boolean delete() {
+        return new File(this.path).delete();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
