@@ -104,6 +104,102 @@ public class PropertiesFile {
         return this;
     }
 
+    public PropertiesFile removeProperty(String key) throws IOException {
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(this.path);
+        properties.load(fileInputStream);
+        properties.remove(key);
+        FileOutputStream fileOutputStream = new FileOutputStream(this.path);
+        properties.store(fileOutputStream, "");
+        fileInputStream.close();
+        fileOutputStream.close();
+        return this;
+    }
+    public PropertiesFile removeProperty(String key, String comment) throws IOException {
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(this.path);
+        properties.load(fileInputStream);
+        properties.remove(key);
+        FileOutputStream fileOutputStream = new FileOutputStream(this.path);
+        properties.store(fileOutputStream, comment);
+        fileInputStream.close();
+        fileOutputStream.close();
+        return this;
+    }
+
+    public PropertiesFile removeProperties(String[] keys) throws IOException {
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(this.path);
+        properties.load(fileInputStream);
+        for (String key : keys) {
+            properties.remove(key);
+        }
+        FileOutputStream fileOutputStream = new FileOutputStream(this.path);
+        properties.store(fileOutputStream, "");
+        fileInputStream.close();
+        fileOutputStream.close();
+        return this;
+    }
+    public PropertiesFile removeProperties(String[] keys, String comment) throws IOException {
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(this.path);
+        properties.load(fileInputStream);
+        for (String key : keys) {
+            properties.remove(key);
+        }
+        FileOutputStream fileOutputStream = new FileOutputStream(this.path);
+        properties.store(fileOutputStream, comment);
+        fileInputStream.close();
+        fileOutputStream.close();
+        return this;
+    }
+
+    public PropertiesFile clear() throws IOException {
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(this.path);
+        properties.load(fileInputStream);
+        properties.clear();
+        FileOutputStream fileOutputStream = new FileOutputStream(this.path);
+        properties.store(fileOutputStream, "");
+        fileInputStream.close();
+        fileOutputStream.close();
+        return this;
+    }
+
+    public boolean contains(String value) throws IOException {
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(this.path);
+        properties.load(fileInputStream);
+        boolean result = properties.contains(value);
+        FileOutputStream fileOutputStream = new FileOutputStream(this.path);
+        properties.store(fileOutputStream, "");
+        fileInputStream.close();
+        fileOutputStream.close();
+        return result;
+    }
+    public boolean containsValue(String value) throws IOException {
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(this.path);
+        properties.load(fileInputStream);
+        boolean result = properties.containsValue(value);
+        FileOutputStream fileOutputStream = new FileOutputStream(this.path);
+        properties.store(fileOutputStream, "");
+        fileInputStream.close();
+        fileOutputStream.close();
+        return result;
+    }
+    public boolean containsKey(String key) throws IOException {
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(this.path);
+        properties.load(fileInputStream);
+        boolean result = properties.containsKey(key);
+        FileOutputStream fileOutputStream = new FileOutputStream(this.path);
+        properties.store(fileOutputStream, "");
+        fileInputStream.close();
+        fileOutputStream.close();
+        return result;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
