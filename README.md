@@ -6,7 +6,16 @@ To register a properties file, you have to do the following:
 ```java
 PropertiesFile propertiesFile = new PropertiesFile(path);
 ```
+If you want a properties file to get returned regardless if it exists or doesn't, you can run the following method:
+
+```java
+PropertiesFile propertiesFile = PropertiesFile.returnObject(path);
+```
+
+This method returns the file if it exists, and creates a new one if it doesn't exist.
+
 You can then run baic actions, like this:
+
 ```java
 if(propertiesFile.exists) {
   //only happens if the file physically exists
@@ -31,3 +40,4 @@ propertiesFile.getProperties(keys[]); //returns an arrays with values in order
 propertiesFile.setProperties(keys[], values[]); //sets the keys with the corresponding values in order
 propertiesFile.setProperties(keys[], values[], comment); //does the same thing except with a comment
 ```
+
