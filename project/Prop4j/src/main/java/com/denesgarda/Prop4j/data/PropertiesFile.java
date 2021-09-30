@@ -1,6 +1,6 @@
 package com.denesgarda.Prop4j.data;
 
-import com.denesgarda.Prop4j.lang.KeyValueMatchException;
+import com.denesgarda.Prop4j.lang.KeyValueMismatchException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -18,6 +18,7 @@ public class PropertiesFile {
         this.path = path;
         return this;
     }
+
     public String getPath() {
         return this.path;
     }
@@ -36,6 +37,19 @@ public class PropertiesFile {
         return result;
     }
 
+    public String getPropertyNotNull(String key, String defaultValue) throws IOException {
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(this.getPath());
+        properties.load(fileInputStream);
+        String result = properties.getProperty(key);
+        fileInputStream.close();
+        if (result == null) {
+            this.setProperty(key, defaultValue);
+            return defaultValue;
+        }
+        return result;
+    }
+
     public PropertiesFile setProperty(String key, String value) throws IOException {
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
@@ -47,6 +61,7 @@ public class PropertiesFile {
         fileOutputStream.close();
         return this;
     }
+
     public PropertiesFile setProperty(String key, String value, String comment) throws IOException {
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
@@ -64,7 +79,7 @@ public class PropertiesFile {
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
-        for(int i = 0; i < keys.length; i++) {
+        for (int i = 0; i < keys.length; i++) {
             result[i] = properties.getProperty(keys[i]);
         }
         fileInputStream.close();
@@ -72,13 +87,13 @@ public class PropertiesFile {
     }
 
     public PropertiesFile setProperties(@NotNull String[] keys, @NotNull String[] values) throws IOException {
-        if(keys.length != values.length) {
-            throw new KeyValueMatchException("The number of keys does not match the number of values");
+        if (keys.length != values.length) {
+            throw new KeyValueMismatchException("The number of keys does not match the number of values");
         }
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
-        for(int i = 0; i < keys.length; i++) {
+        for (int i = 0; i < keys.length; i++) {
             properties.put(keys[i], values[i]);
         }
         FileOutputStream fileOutputStream = new FileOutputStream(this.path);
@@ -87,14 +102,15 @@ public class PropertiesFile {
         fileOutputStream.close();
         return this;
     }
+
     public PropertiesFile setProperties(@NotNull String[] keys, @NotNull String[] values, String comment) throws IOException {
-        if(keys.length != values.length) {
-            throw new KeyValueMatchException("The number of keys does not match the number of values");
+        if (keys.length != values.length) {
+            throw new KeyValueMismatchException("The number of keys does not match the number of values");
         }
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
-        for(int i = 0; i < keys.length; i++) {
+        for (int i = 0; i < keys.length; i++) {
             properties.put(keys[i], values[i]);
         }
         FileOutputStream fileOutputStream = new FileOutputStream(this.path);
@@ -115,6 +131,7 @@ public class PropertiesFile {
         fileOutputStream.close();
         return this;
     }
+
     public PropertiesFile removeProperty(String key, String comment) throws IOException {
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
@@ -140,6 +157,7 @@ public class PropertiesFile {
         fileOutputStream.close();
         return this;
     }
+
     public PropertiesFile removeProperties(String[] keys, String comment) throws IOException {
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
@@ -177,6 +195,7 @@ public class PropertiesFile {
         fileOutputStream.close();
         return result;
     }
+
     public boolean containsValue(String value) throws IOException {
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
@@ -188,6 +207,7 @@ public class PropertiesFile {
         fileOutputStream.close();
         return result;
     }
+
     public boolean containsKey(String key) throws IOException {
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
