@@ -1,6 +1,7 @@
 package com.denesgarda.Prop4j.data;
 
 import com.denesgarda.Prop4j.lang.KeyValueMismatchException;
+import com.denesgarda.Prop4j.lang.OperationFailedException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -17,6 +18,20 @@ public class PropertiesFile {
     public PropertiesFile setPath(String path) {
         this.path = path;
         return this;
+    }
+
+    public static PropertiesFile returnObject(String path) throws IOException {
+        File file = new File(path);
+        if (file.exists()) {
+            return new PropertiesFile(path);
+        } else {
+            boolean successful = file.createNewFile();
+            if (successful) {
+                return new PropertiesFile(path);
+            } else {
+                throw new OperationFailedException("Failed to create properties file.");
+            }
+        }
     }
 
     public String getPath() {
