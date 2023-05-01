@@ -24,11 +24,12 @@ public class Properties {
         if (file.exists()) {
             return new Properties(path);
         } else {
-            boolean successful = file.createNewFile();
-            if (successful) {
+            boolean a = file.getParentFile().mkdirs();
+            boolean b = file.createNewFile();
+            if (a && b) {
                 return new Properties(path);
             } else {
-                throw new OperationFailedException("Failed to create properties file.");
+                throw new OperationFailedException("Failed to create properties file and/or parent files.");
             }
         }
     }
