@@ -1,4 +1,4 @@
-package com.denesgarda.Prop4j.data;
+package com.denesgarda.Prop4j;
 
 import com.denesgarda.Prop4j.lang.KeyValueMismatchException;
 import com.denesgarda.Prop4j.lang.OperationFailedException;
@@ -6,28 +6,27 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.util.Objects;
-import java.util.Properties;
 
-public class PropertiesFile {
+public class Properties {
     private String path;
 
-    public PropertiesFile(String path) {
+    public Properties(String path) {
         this.path = path;
     }
 
-    public PropertiesFile setPath(String path) {
+    public Properties setPath(String path) {
         this.path = path;
         return this;
     }
 
-    public static PropertiesFile returnObject(String path) throws IOException {
+    public static Properties returnObject(String path) throws IOException {
         File file = new File(path);
         if (file.exists()) {
-            return new PropertiesFile(path);
+            return new Properties(path);
         } else {
             boolean successful = file.createNewFile();
             if (successful) {
-                return new PropertiesFile(path);
+                return new Properties(path);
             } else {
                 throw new OperationFailedException("Failed to create properties file.");
             }
@@ -44,7 +43,7 @@ public class PropertiesFile {
     }
 
     public String getProperty(String key) throws IOException {
-        Properties properties = new Properties();
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         String result = properties.getProperty(key);
@@ -52,8 +51,8 @@ public class PropertiesFile {
         return result;
     }
 
-    public String getPropertyNotNull(String key, String defaultValue) throws IOException {
-        Properties properties = new Properties();
+    public String getDefault(String key, String defaultValue) throws IOException {
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.getPath());
         properties.load(fileInputStream);
         String result = properties.getProperty(key);
@@ -65,8 +64,8 @@ public class PropertiesFile {
         return result;
     }
 
-    public PropertiesFile setProperty(String key, String value) throws IOException {
-        Properties properties = new Properties();
+    public Properties setProperty(String key, String value) throws IOException {
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         properties.setProperty(key, value);
@@ -77,8 +76,8 @@ public class PropertiesFile {
         return this;
     }
 
-    public PropertiesFile setProperty(String key, String value, String comment) throws IOException {
-        Properties properties = new Properties();
+    public Properties setProperty(String key, String value, String comment) throws IOException {
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         properties.setProperty(key, value);
@@ -91,7 +90,7 @@ public class PropertiesFile {
 
     public String[] getProperties(String[] keys) throws IOException {
         String[] result = new String[keys.length];
-        Properties properties = new Properties();
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         for (int i = 0; i < keys.length; i++) {
@@ -101,11 +100,11 @@ public class PropertiesFile {
         return result;
     }
 
-    public PropertiesFile setProperties(@NotNull String[] keys, @NotNull String[] values) throws IOException {
+    public Properties setProperties(@NotNull String[] keys, @NotNull String[] values) throws IOException {
         if (keys.length != values.length) {
             throw new KeyValueMismatchException("The number of keys does not match the number of values");
         }
-        Properties properties = new Properties();
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         for (int i = 0; i < keys.length; i++) {
@@ -118,11 +117,11 @@ public class PropertiesFile {
         return this;
     }
 
-    public PropertiesFile setProperties(@NotNull String[] keys, @NotNull String[] values, String comment) throws IOException {
+    public Properties setProperties(@NotNull String[] keys, @NotNull String[] values, String comment) throws IOException {
         if (keys.length != values.length) {
             throw new KeyValueMismatchException("The number of keys does not match the number of values");
         }
-        Properties properties = new Properties();
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         for (int i = 0; i < keys.length; i++) {
@@ -135,8 +134,8 @@ public class PropertiesFile {
         return this;
     }
 
-    public PropertiesFile removeProperty(String key) throws IOException {
-        Properties properties = new Properties();
+    public Properties removeProperty(String key) throws IOException {
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         properties.remove(key);
@@ -147,8 +146,8 @@ public class PropertiesFile {
         return this;
     }
 
-    public PropertiesFile removeProperty(String key, String comment) throws IOException {
-        Properties properties = new Properties();
+    public Properties removeProperty(String key, String comment) throws IOException {
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         properties.remove(key);
@@ -159,8 +158,8 @@ public class PropertiesFile {
         return this;
     }
 
-    public PropertiesFile removeProperties(String[] keys) throws IOException {
-        Properties properties = new Properties();
+    public Properties removeProperties(String[] keys) throws IOException {
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         for (String key : keys) {
@@ -173,8 +172,8 @@ public class PropertiesFile {
         return this;
     }
 
-    public PropertiesFile removeProperties(String[] keys, String comment) throws IOException {
-        Properties properties = new Properties();
+    public Properties removeProperties(String[] keys, String comment) throws IOException {
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         for (String key : keys) {
@@ -187,8 +186,8 @@ public class PropertiesFile {
         return this;
     }
 
-    public PropertiesFile clear() throws IOException {
-        Properties properties = new Properties();
+    public Properties clear() throws IOException {
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         properties.clear();
@@ -200,7 +199,7 @@ public class PropertiesFile {
     }
 
     public boolean contains(String value) throws IOException {
-        Properties properties = new Properties();
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         boolean result = properties.contains(value);
@@ -212,7 +211,7 @@ public class PropertiesFile {
     }
 
     public boolean containsValue(String value) throws IOException {
-        Properties properties = new Properties();
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         boolean result = properties.containsValue(value);
@@ -224,7 +223,7 @@ public class PropertiesFile {
     }
 
     public boolean containsKey(String key) throws IOException {
-        Properties properties = new Properties();
+        java.util.Properties properties = new java.util.Properties();
         FileInputStream fileInputStream = new FileInputStream(this.path);
         properties.load(fileInputStream);
         boolean result = properties.containsKey(key);
@@ -247,7 +246,7 @@ public class PropertiesFile {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PropertiesFile that = (PropertiesFile) o;
+        Properties that = (Properties) o;
         return Objects.equals(path, that.path);
     }
 
